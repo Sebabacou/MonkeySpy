@@ -1,8 +1,11 @@
 ### Rust template
+# IDE
+.idea/
+
 # BananaSnatcher
-./BananaSnatcher/debug/
-./BananaSnatcher/target/
-./BananaSnatcher/Cargo.lock
+BananaSnatcher/debug/
+BananaSnatcher/target/
+BananaSnatcher/Cargo.lock
 
 
 
