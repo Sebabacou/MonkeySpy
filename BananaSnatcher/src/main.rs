@@ -1,6 +1,5 @@
-mod user_security;
 mod key_catcher;
-
+mod user_security;
 
 fn main() {
     if !user_security::ask_for_confirmation() {
