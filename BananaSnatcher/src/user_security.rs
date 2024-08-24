@@ -29,7 +29,7 @@ pub fn ask_for_confirmation() -> bool {
 pub fn status_banana(status: Status) {
     match status {
         Status::Starting => println!("Starting BananaSnatcher..."),
-        Status::Running => println!("Banana is snatching..."),
+        Status::Running => println!("snatching for banana..."),
         Status::NotRunning => println!("BananaSnatcher has stopped snatching"),
     }
 }
