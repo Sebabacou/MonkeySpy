@@ -1,8 +1,9 @@
 use crate::user_security;
 use evdev::{Device, Key};
 
-pub fn find_keyboard() {
+pub fn find_keyboard() -> Result<Vec<Device>, ()> {
     let mut event_nbr = 0;
+    let mut keyboards: Vec<Device> = Vec::new();
 
     loop {
         let device = Device::open(&format!("/dev/input/event{}", event_nbr));
@@ -12,17 +13,23 @@ pub fn find_keyboard() {
                     .supported_keys()
                     .map_or(false, |keys| keys.contains(Key::KEY_ENTER))
                 {
-                    println!("keyboard found at /dev/input/event{}", event_nbr);
+                    keyboards.push(device);
                 }
                 event_nbr += 1;
             }
             Err(e) => {
-                if e.kind() == std::io::ErrorKind::PermissionDenied {
+                return if e.kind() == std::io::ErrorKind::PermissionDenied {
                     user_security::status_banana(user_security::Status::NotRunning);
-                    println!("Permission denied, try running as root");
-                    return;
+                    eprintln!("Permission denied, try running as root");
+                    Err(())
                 } else {
-                    return;
+                    if keyboards.is_empty() {
+                        user_security::status_banana(user_security::Status::NotRunning);
+                        eprintln!("No keyboard found, please connect a keyboard");
+                        Err(())
+                    } else {
+                        Ok(keyboards)
+                    }
                 }
             }
         }

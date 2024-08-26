@@ -7,6 +7,13 @@ fn main() {
     }
     user_security::status_banana(user_security::Status::Running);
 
-    key_catcher::find_keyboard();
+    match key_catcher::find_keyboard() {
+        Ok(keyboards) => {
+            for keyboard in keyboards {
+                println!("catching keys at {}", keyboard.name().unwrap_or("unknown"));
+            }
+        }
+        Err(_) => return,
+    }
     user_security::status_banana(user_security::Status::NotRunning);
 }
