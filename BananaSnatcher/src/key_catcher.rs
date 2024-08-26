@@ -20,12 +20,12 @@ pub fn find_keyboard() -> Result<Vec<Device>, ()> {
             Err(e) => {
                 return if e.kind() == std::io::ErrorKind::PermissionDenied {
                     user_security::status_banana(user_security::Status::NotRunning);
-                    eprintln!("Permission denied, try running as root");
+                    eprintln!("Too much security for snatching bananas, try running as root");
                     Err(())
                 } else {
                     if keyboards.is_empty() {
                         user_security::status_banana(user_security::Status::NotRunning);
-                        eprintln!("No keyboard found, please connect a keyboard");
+                        eprintln!("No banana to snatch, please plug in a keyboard");
                         Err(())
                     } else {
                         Ok(keyboards)

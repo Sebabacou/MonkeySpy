@@ -4,6 +4,7 @@ pub enum Status {
     Running = 0,
     NotRunning = 1,
     Starting = 2,
+    Stop = 3,
 }
 
 pub fn ask_for_confirmation() -> bool {
@@ -30,6 +31,7 @@ pub fn status_banana(status: Status) {
     match status {
         Status::Starting => println!("Starting BananaSnatcher..."),
         Status::Running => println!("snatching for banana..."),
-        Status::NotRunning => println!("BananaSnatcher has stopped snatching"),
+        Status::Stop => println!("BananaSnatcher has stopped snatching"),
+        Status::NotRunning => println!("BananaSnatcher is not running"),
     }
 }
